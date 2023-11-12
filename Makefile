@@ -11,18 +11,31 @@ UNAME := $(shell uname)
 help:
 	@grep "^# help\:" Makefile | sed 's/\# help\: //' | sed 's/\# help\://'
 
-.PHONY: ba
-# help: ba				- build application
-ba:
+.PHONY: bw
+# help: bw				- build web app
+bw:
 	@cd web-app; docker compose -f docker-compose.yml up --build -d; cd ..
 
-.PHONY: cp
-# help: cp				- cp out latest build files
-cp:
-	@cp ~/devcode/fineract/containers/nginx/html/assets/.env.js ~/Desktop
-	@rm -rf ~/devcode/fineract/containers/nginx/html/
+.PHONY: cpw
 
-	@docker cp web-app-mifosx-web-app-1:/usr/share/nginx/html ~/devcode/fineract/containers/nginx/
+# help: cpw				- cp out latest build files of web app
+cpw:
+	@cp ~/devcode/fineract/containers/nginx/web-app/assets/.env.js ~/Desktop
+	@rm -rf ~/devcode/fineract/containers/nginx/web-app/
 
-	@mv ~/Desktop/.env.js ~/devcode/fineract/containers/nginx/html/assets/.env.js
-	@rm ~/devcode/fineract/containers/nginx/html/assets/env.js
+	@docker cp web-app-mifosx-web-app-1:/usr/share/nginx/html ~/devcode/fineract/containers/nginx/web-app
+
+	@mv ~/Desktop/.env.js ~/devcode/fineract/containers/nginx/web-app/assets/.env.js
+	@rm ~/devcode/fineract/containers/nginx/web-app/assets/env.js
+
+.PHONY: bm
+# help: bm				- build mifos community
+bm:
+	@cd community-app; docker build -t mifos-community-app . && \
+	docker run --name mifos-ui -it -d -p 28000:80 mifos-community-app
+
+.PHONY: cpm
+
+# help: cpm				- cp out latest build files of mifos community
+cpm:
+	@docker cp mifos-ui:/usr/share/nginx/html ~/devcode/fineract/containers/nginx/community-app
