@@ -14,7 +14,7 @@ help:
 .PHONY: bw
 # help: bw				- build web app
 bw:
-	@cd web-app; docker compose -f docker-compose.yml up --build -d; cd ..
+	@cd web-app; BUILDKIT_PROGRESS=plain docker compose -f docker-compose.yml up --build -d; cd ..
 
 .PHONY: cpw
 
@@ -31,7 +31,7 @@ cpw:
 .PHONY: bm
 # help: bm				- build mifos community
 bm:
-	@cd community-app; docker build -t mifos-community-app . && \
+	@cd community-app; BUILDKIT_PROGRESS=plain docker build -t mifos-community-app . && \
 	docker run --name mifos-ui -it -d -p 28000:80 mifos-community-app
 
 .PHONY: cpm
