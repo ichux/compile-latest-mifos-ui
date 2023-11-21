@@ -25,8 +25,12 @@ cpw:
 
 	@docker cp web-app-mifosx-web-app-1:/usr/share/nginx/html ~/devcode/fineract/containers/nginx/web-app
 
-	@mv ~/Desktop/.env.js ~/devcode/fineract/containers/nginx/web-app/assets/.env.js
-	@rm ~/devcode/fineract/containers/nginx/web-app/assets/env.js
+	@cp ~/Desktop/.env.js ~/devcode/fineract/containers/nginx/web-app/assets/.env.js
+	@mv ~/Desktop/.env.js ~/devcode/fineract/containers/nginx/web-app/assets/env.js
+
+	@#------
+	@rm -rf ~/devcode/lite-fineract/web-app
+	@cp -r ~/devcode/fineract/containers/nginx/web-app ~/devcode/lite-fineract
 
 .PHONY: bm
 # help: bm				- build mifos community
@@ -39,3 +43,5 @@ bm:
 # help: cpm				- cp out latest build files of mifos community
 cpm:
 	@docker cp mifos-ui:/usr/share/nginx/html ~/devcode/fineract/containers/nginx/community-app
+	@rm -rf ~/devcode/lite-fineract/community-app
+	@cp ~/devcode/fineract/containers/nginx/community-app ~/devcode/lite-fineract
