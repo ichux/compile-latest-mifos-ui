@@ -21,16 +21,19 @@ bw:
 # help: cpw				- cp out latest build files of web app
 cpw:
 	@cp ~/devcode/fineract/containers/nginx/web-app/assets/.env.js ~/Desktop
+	@cp ~/devcode/fineract/containers/nginx/web-app/assets/env.js ~/Desktop
 	@rm -rf ~/devcode/fineract/containers/nginx/web-app/
 
 	@docker cp web-app-mifosx-web-app-1:/usr/share/nginx/html ~/devcode/fineract/containers/nginx/web-app
 
-	@cp ~/Desktop/.env.js ~/devcode/fineract/containers/nginx/web-app/assets/.env.js
-	@mv ~/Desktop/.env.js ~/devcode/fineract/containers/nginx/web-app/assets/env.js
+	@mv ~/Desktop/.env.js ~/devcode/fineract/containers/nginx/web-app/assets/.env.js
+	@mv ~/Desktop/env.js ~/devcode/fineract/containers/nginx/web-app/assets/env.js
 
 	@#------
+	@cp ~/devcode/lite-fineract/web-app/assets/env.js ~/Desktop
 	@rm -rf ~/devcode/lite-fineract/web-app
 	@cp -r ~/devcode/fineract/containers/nginx/web-app ~/devcode/lite-fineract
+	@mv ~/Desktop/env.js ~/devcode/lite-fineract/web-app/assets/env.js
 
 .PHONY: bm
 # help: bm				- build mifos community
