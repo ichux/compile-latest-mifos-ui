@@ -45,6 +45,11 @@ bm:
 
 # help: cpm				- cp out latest build files of mifos community
 cpm:
-	@docker cp mifos-ui:/usr/share/nginx/html ~/devcode/fineract/containers/nginx/community-app
+	@cp ~/devcode/fineract/containers/nginx/community-app/scripts/drillR.js ~/Desktop/
+	@rm -rf ~/devcode/fineract/containers/nginx/community-app
+	@docker cp mifos-ui:/usr/share/nginx/html ~/devcode/fineract/containers/nginx/
+	@mv ~/devcode/fineract/containers/nginx/html ~/devcode/fineract/containers/nginx/community-app
+	@mv ~/Desktop/drillR.js containers/nginx/community-app/scripts/drillR.js
+
 	@rm -rf ~/devcode/lite-fineract/community-app
-	@cp ~/devcode/fineract/containers/nginx/community-app ~/devcode/lite-fineract
+	@cp -r ~/devcode/fineract/containers/nginx/community-app ~/devcode/lite-fineract
