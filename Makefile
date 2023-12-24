@@ -11,15 +11,15 @@ UNAME := $(shell uname)
 help:
 	@grep "^# help\:" Makefile | sed 's/\# help\: //' | sed 's/\# help\://'
 
-.PHONY: bw
-# help: bw				- build web app
-bw:
+.PHONY: bwa
+# help: bwa				- build web app
+bwa:
 	@cd web-app; BUILDKIT_PROGRESS=plain docker compose -f docker-compose.yml up --build -d; cd ..
 
-.PHONY: cpw
+.PHONY: cpwa
 
-# help: cpw				- cp out latest build files of web app
-cpw:
+# help: cpwa				- cp out latest build files of web app
+cpwa:
 	@cp ~/devcode/fineract/containers/nginx/web-app/assets/.env.js ~/Desktop
 	@cp ~/devcode/fineract/containers/nginx/web-app/assets/env.js ~/Desktop
 	@rm -rf ~/devcode/fineract/containers/nginx/web-app/
@@ -35,16 +35,16 @@ cpw:
 	@cp -r ~/devcode/fineract/containers/nginx/web-app ~/devcode/lite-fineract
 	@mv ~/Desktop/env.js ~/devcode/lite-fineract/web-app/assets/env.js
 
-.PHONY: bm
-# help: bm				- build mifos community
-bm:
+.PHONY: bca
+# help: bca				- build mifos community
+bca:
 	@cd community-app; BUILDKIT_PROGRESS=plain docker build -t mifos-community-app . && \
 	docker run --name mifos-ui -it -d -p 28000:80 mifos-community-app
 
-.PHONY: cpm
+.PHONY: cpca
 
-# help: cpm				- cp out latest build files of mifos community
-cpm:
+# help: cpca				- cp out latest build files of mifos community
+cpca:
 	@cp ~/devcode/fineract/containers/nginx/community-app/scripts/drillR.js ~/Desktop/
 	@rm -rf ~/devcode/fineract/containers/nginx/community-app
 	@docker cp mifos-ui:/usr/share/nginx/html ~/devcode/fineract/containers/nginx/
