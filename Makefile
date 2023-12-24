@@ -45,11 +45,14 @@ bca:
 
 # help: cpca				- cp out latest build files of mifos community
 cpca:
-	@cp ~/devcode/fineract/containers/nginx/community-app/scripts/drillR.js ~/Desktop/
 	@rm -rf ~/devcode/fineract/containers/nginx/community-app
-	@docker cp mifos-ui:/usr/share/nginx/html ~/devcode/fineract/containers/nginx/
-	@mv ~/devcode/fineract/containers/nginx/html ~/devcode/fineract/containers/nginx/community-app
-	@mv ~/Desktop/drillR.js containers/nginx/community-app/scripts/drillR.js
+	@docker cp mifos-ui:/usr/share/nginx/html ~/devcode/fineract/containers/nginx/community-app
+	@cp drillR.js ~/devcode/fineract/containers/nginx/community-app/scripts/drillR.js
 
+	@docker cp mifos-ui:/usr/share/nginx/html ~/Desktop/html
+	@echo "edit all necessary files at '~/Desktop/html' then run: make 'cplf'"
+
+# help: cplf				- cp out latest build files to ~/devcode/lite-fineract
+cplf:
 	@rm -rf ~/devcode/lite-fineract/community-app
 	@cp -r ~/devcode/fineract/containers/nginx/community-app ~/devcode/lite-fineract
