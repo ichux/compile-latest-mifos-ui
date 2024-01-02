@@ -45,12 +45,15 @@ bca:
 
 # help: cpca				- cp out latest build files of mifos community
 cpca:
+	@mkdir -p ~/Desktop/ca-keeps
+	@cp ~/devcode/fineract/containers/nginx/community-app/scripts/routes-initialTasks-webstorage-configuration.*.js ~/Desktop/ca-keeps
+	@cp ~/devcode/fineract/containers/nginx/community-app/index.html ~/Desktop/ca-keeps/
 	@rm -rf ~/devcode/fineract/containers/nginx/community-app
 	@docker cp mifos-ui:/usr/share/nginx/html ~/devcode/fineract/containers/nginx/community-app
 	@cp drillR.js ~/devcode/fineract/containers/nginx/community-app/scripts/drillR.js
 
 	@docker cp mifos-ui:/usr/share/nginx/html ~/Desktop/html
-	@echo "edit all necessary files at '~/Desktop/html' then run: make 'cplf'"
+	@echo "edit all necessary files at '~/Desktop/html' using '~/Desktop/ca-keeps' then run: make 'cplf'"
 
 # help: cplf				- cp out latest build files to ~/devcode/lite-fineract
 cplf:
